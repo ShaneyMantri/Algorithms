@@ -1,2 +1,3 @@
 # Algorithms
-Easy solutions to Algorithmic problems
+Easy, interpretable solutions to Algorithmic problems
+
