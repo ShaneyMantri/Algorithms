@@ -55,3 +55,31 @@ class Solution:
                         d[i]=[j]
         return self.bfs(d)
                 
+# DFS IMPLEMENTATION
+class Solution:
+    v= []
+    ret = 0
+    def dfs(self,i, d):
+        for j in d[i]:
+            if self.v[j]==0:
+                self.v[j]=1
+                self.dfs(j, d)
+                                    
+    def findCircleNum(self, M: List[List[int]]) -> int:
+        d = {}
+        for i in range(len(M)):
+            for j in range(len(M[i])):
+                if M[i][j]==1:
+                    if i in d:
+                        d[i].append(j)
+                    else:
+                        d[i]=[j]
+        self.ret = 0
+        self.v=[0]*len(d.keys())
+        for i in range(len(self.v)):
+            if self.v[i]==0:
+                self.v[i]=1
+                self.dfs(i, d)
+                self.ret+=1
+        return self.ret
+                
