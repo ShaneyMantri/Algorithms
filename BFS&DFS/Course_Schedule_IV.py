@@ -50,7 +50,6 @@ class Solution:
                 d[i[0]].append(i[1])
             else:
                 d[i[0]]= [i[1]]
-                
         return d
     
     def bfs(self, d, src, dst, n):
@@ -67,17 +66,13 @@ class Solution:
                     if visited[i]==0:
                         q.append(i)
                         visited[i]=1
-                    
         return False   
     
     def checkIfPrerequisite(self, n: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        
         d = self.buildGraph(prerequisites)
         res = []
         for i in queries:
             src = i[0]
             dst = i[1]
-            # print(src, dst)
-            # print(d)
             res.append(self.bfs(d, src, dst, n))
         return res
