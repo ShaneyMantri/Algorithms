@@ -19,6 +19,8 @@ The falling path with the smallest sum is [1,4,7], so the answer is 12.
 """
 
 ### TLE 36/46
+## CHECK DP
+
 import sys
 class Solution:
     tot =0 
