@@ -28,6 +28,8 @@ There are two ways to reach the bottom-right corner:
 """
 
 ## BFS TLE 27/41
+## CHECK DP
+
 class Solution:
     res = []
     def dfs(self, i, j, v, o, m, n, p):
