@@ -27,7 +27,7 @@ There are two ways to reach the bottom-right corner:
 
 """
 
-## BFS TLE 27/41
+## DFS TLE 27/41
 ## CHECK DP
 
 class Solution:
