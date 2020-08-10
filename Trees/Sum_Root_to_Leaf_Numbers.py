@@ -23,14 +23,8 @@ Therefore, sum = 12 + 13 = 25.
 
 """
 
+#METHOD 1
 
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
     res = []
     def dfs(self, root, s):
@@ -54,6 +48,25 @@ class Solution:
             temp+=int(i)
             
         return temp
-            
+    
+    
+# METHOD 2
+
+class Solution:
+    def dfs(self, root, s):
+        if root.left is None and root.right is None:
+            self.res.append(s*10+root.val)
+            return
+        if root.left:
+            self.dfs(root.left, s*10+root.val)
+        if root.right:
+            self.dfs(root.right, s*10+root.val)
+        return
+        
+    def sumNumbers(self, A: TreeNode) -> int:
+        if not A:
+            return 0
+        self.dfs(A, 0)
+        return sum(self.res)
         
         
