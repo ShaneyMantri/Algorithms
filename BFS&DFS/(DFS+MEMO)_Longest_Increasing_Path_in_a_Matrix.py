@@ -24,7 +24,7 @@ Input: nums =
 Output: 4 
 Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
 """
-
+# METHOD 1
 class Solution:
     def dfs(self, dirs, mat, m,n,i,j,memo):
         if memo[i][j]>0:
@@ -54,5 +54,38 @@ class Solution:
                 self.dfs(dirs, matrix, m,n,i,j,memo)
                 
         return max(max(j) for j in memo)
+        
+        
+# METHOD 2
+class Solution:
+    def dfs(self, dirs, mat, m,n,i,j,memo):
+        
+        if str(i)+','+str(j) in memo:
+            return memo[str(i)+','+str(j)]
+        
+        t = 0
+        memo[str(i)+','+str(j)] = 1
+        for x,y in dirs:
+            if 0<=(i+x)<m and 0<=(y+j)<n and mat[i][j]>mat[i+x][j+y]:
+                t = self.dfs(dirs, mat, m,n,i+x,y+j, memo)
+                memo[str(i)+','+str(j)] = max(memo[str(i)+','+str(j)], t+1)
+
+        return memo[str(i)+','+str(j)]
+
+    
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        memo = {}
+        m = len(matrix)
+        if m==0:
+            return 0
+        
+        n = len(matrix[0])
+        if n==0:
+            return 0
+        dirs = [(1,0),(-1,0),(0,1), (0,-1)]
+        for i in range(m):
+            for j in range(n):
+                self.dfs(dirs, matrix, m,n,i,j,memo)
+        return max(memo.values())
         
         
