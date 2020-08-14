@@ -81,4 +81,58 @@ class Solution:
         return res
                 
         
+## Method 2
+## 340ms
+
+from collections import deque
+class Solution:
+    def bfs(self, mat, start,end, dirs, v):
+        m = len(mat)
+        n = len(mat[0])
+        d = deque([(start, end)])
+        while d:
+            i, j = d.popleft()
+            for x,y in dirs:
+                if 0<=(i+x)<m and 0<=(y+j)<n and mat[i][j]<=mat[i+x][j+y] and v[i+x][j+y]==0:
+                    d.append((i+x, y+j))
+                    v[i+x][j+y] = 1
+            
+            
+        
+            
+    def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
+        m = len(matrix)
+        if m==0:
+            return []
+        n = len(matrix[0])
+        if n==0:
+            return []
+        dirs = [[0,1],[0,-1],[1,0],[-1,0]]
+        po = [[0]*n for _ in range(m)]
+        ao = [[0]*n for _ in range(m)]
+        for j in range(n):
+            po[0][j]=1
+            ao[m-1][j]=1
+            
+        for i in range(m):
+            po[i][0]=1
+            ao[i][n-1]=1
+        
+        stat_p = po.copy()
+        stat_a = ao.copy()
+        for i in range(m):
+            for j in range(n):
+                if po[i][j]==1:
+                    self.bfs(matrix, i,j,dirs, stat_p)
+                if ao[i][j]==1:
+                    self.bfs(matrix,i,j,dirs,stat_a)
+                    
+        res = []        
+        for i in range(m):
+            for j in range(n):
+                if stat_p[i][j]==1 and stat_a[i][j]==1:
+                    res.append([i,j])
+                    
+        return res
+        
         
