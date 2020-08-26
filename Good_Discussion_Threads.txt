@@ -1,0 +1,3 @@
+Good Discussion Threads for similar kinds of questions
+
+https://leetcode.com/problems/find-k-th-smallest-pair-distance/discuss/109082/Approach-the-problem-using-the-%22trial-and-error%22-algorithm
