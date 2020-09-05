@@ -13,7 +13,7 @@ This is a partition so that each letter appears in at most one part.
 A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits S into less parts.
 """
 
-# METHOD 1
+# METHOD 1 slower
 
 class Solution:
     def partitionLabels(self, S: str) -> List[int]:
@@ -60,7 +60,7 @@ class Solution:
         return res
                     
                     
-# METHOD 2
+# METHOD 2 faster
 
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
