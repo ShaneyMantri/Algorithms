@@ -54,7 +54,6 @@ class Solution:
 
        
 # METHOD 2
-
 class Solution:
     def minCost(self, s: str, cost: List[int]) -> int:
         n = len(s)
