@@ -24,6 +24,8 @@ Output: 2
 Explanation: Delete the first and the last character, getting the string ("aba").
 """
 
+
+# METHOD 1
 class Solution:
     def minCost(self, s: str, cost: List[int]) -> int:
         n = len(s)
@@ -49,3 +51,28 @@ class Solution:
             else:
                 i+=1
         return s               
+
+       
+# METHOD 2
+
+class Solution:
+    def minCost(self, s: str, cost: List[int]) -> int:
+        n = len(s)
+        res = [0]*n
+        if n==1:
+            return 0
+        st = 0
+        en = 1
+        res = 0
+        while en<n:
+            if s[st] == s[en]:
+                if st != en:
+                    en+=1
+            else:
+                res += sum(cost[st:en]) - max(cost[st:en])
+                st = en
+                en+=1
+        if s[st] == s[en-1]:
+            res += sum(cost[st:en]) - max(cost[st:en])
+        return res
+        
