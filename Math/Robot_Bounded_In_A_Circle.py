@@ -30,7 +30,7 @@ Output: true
 Explanation: 
 The robot moves from (0, 0) -> (0, 1) -> (-1, 1) -> (-1, 0) -> (0, 0) -> ...
 """
-
+# Method 1
 class Solution:
     def isRobotBounded(self, instructions: str) -> bool:
         init = [0,0]
@@ -58,3 +58,45 @@ class Solution:
             return False
         else:
             return True
+         
+         
+# Method 2
+class Solution:
+    def isRobotBounded(self, instructions: str) -> bool:
+        h = 0
+        v = 0
+        dirs = ["N", "E", "S", "W"]
+        currDir = dirs[0]
+        for i in instructions:
+            if i == "G":
+                if currDir == "N":
+                    v += 1
+                elif currDir == "S":
+                    v -= 1
+                elif currDir == "W":
+                    h -= 1
+                else:
+                    h += 1
+            elif i == "L":
+                currDir = dirs[dirs.index(currDir) - 1]
+            else:
+                currDir = dirs[(dirs.index(currDir) + 1)%4]
+        
+        if h  == 0:
+            if v == 0:
+                return True
+            else:
+                if currDir == "N":
+                    return False
+                else:
+                    return True
+        if v == 0:
+            if currDir == "N":
+                return False
+            else:
+                return True
+        
+        if currDir == "N":
+            return False
+    
+        return True
