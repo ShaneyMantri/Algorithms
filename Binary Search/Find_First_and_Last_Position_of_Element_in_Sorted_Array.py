@@ -14,7 +14,7 @@ Example 2:
 Input: nums = [5,7,7,8,8,10], target = 6
 Output: [-1,-1]
 """
-
+# Method 1 slower
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         n = len(nums)
@@ -53,3 +53,44 @@ class Solution:
         else:
             return [-1,-1]
         
+# Method 2 faster
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        if len(nums) == 0:
+            return [-1, -1]
+        
+        if len(nums) == 1:
+            if nums[0] == target:
+                return [0, 0]
+            else:
+                return [-1, -1]
+            
+        res = [0, 0]
+        low = 0
+        high = len(nums)
+        possibleLeft = -1
+        possibleRight = -1
+        while low < high:
+            mid = (low+high)//2
+            if nums[mid] >= target:
+                if nums[mid] == target:
+                    possibleLeft = mid
+                high = mid
+            else:
+                low = mid + 1
+        
+        res[0] = possibleLeft
+            
+        low = 0
+        high = len(nums)
+        while low < high:
+            mid = (low + high)//2
+            if nums[mid] <= target:
+                if nums[mid] == target:
+                    possibleRight = mid
+                low = mid + 1
+            else:
+                high = mid
+                
+        res[1] = possibleRight
+        return res
