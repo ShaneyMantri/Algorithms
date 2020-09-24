@@ -51,3 +51,33 @@ class Solution:
     def canCross(self, stones: List[int]) -> bool:
         memo = {}
         return True if self.dfs(memo, 0, stones, 0) >= 1 else False
+    
+    
+    
+    
+# Method 2 is also with hashmap bec matrix caused MME --> AC
+class Solution:
+    def canCross(self, stones: List[int]) -> bool:
+        m = len(stones)
+        n = max(stones)
+        if m == 2:
+            if stones[1] != 1:
+                return False
+            return True
+        dp = {}
+        dp[(0,1)] = 1
+        dp[(1,1)] = 1
+        dp[(1,2)] = 1
+        for i in range(2, m):
+            for j in range(i - 1, 0, -1):
+                if (j, stones[i] - stones[j]) in dp:
+                    if dp[(j,stones[i] - stones[j])] == 1:
+                        if stones[i] - stones[j] > 0:
+                            if i == (m-1):
+                                return True
+                            dp[(i, stones[i] - stones[j] - 1)] = 1
+                            dp[(i, stones[i] - stones[j])] = 1
+                            dp[(i, stones[i] - stones[j] + 1)] = 1
+                        
+        return False
+        
