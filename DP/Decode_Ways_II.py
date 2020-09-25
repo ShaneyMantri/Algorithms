@@ -20,23 +20,20 @@ Input: "1*"
 Output: 9 + 9 = 18
 """
 
-# Method 1 WA - 128/173
+# Method 1 WA - 143/173
 
 class Solution:
     def dfs(self, memo, i, n):
-        # print(n)
+        # print(n[i:])
         if n[i:] in memo:
             return memo[n[i:]]
         
         if len(n) == 0:
-            # print(n, 1)
             return 1
         
         if len(n) == 1:
             if n.count('*') == 0:
-                # print(n, 1)
                 return 1
-            # print(n, 9)
             return 9
         
         # if len(n) == 2 and n.count('*') == 0:
@@ -53,23 +50,25 @@ class Solution:
                 if n[1] == "0":
                     memo[n[i:]] += self.dfs(memo, i, n[2:])
                     # memo[n[i:]] += self.dfs(memo, i, n[1:])
+                elif n[1] == "*":
+                    for j in range(1, 10):
+                        memo[n[i:]] += self.dfs(memo, i, n[0] + str(j) + n[2:])
                 else:
                     memo[n[i:]] += self.dfs(memo, i, n[1:])
                     memo[n[i:]] += self.dfs(memo, i, n[2:])
-                if n[1] == "*":
-                    for j in range(1, 10):
-                        memo[n[i:]] += self.dfs(memo, i, n[0] + str(j) + n[2:])
                     
             elif n[0] == '2':
                 if n[1] == '0':
                     # memo[n[i:]] += self.dfs(memo, i, n[1:])
                     memo[n[i:]] += self.dfs(memo, i, n[2:])
+                elif n[1] == "*":
+                    for j in range(1, 7):
+                        memo[n[i:]] += self.dfs(memo, i, n[0] + str(j) + n[2:])
                 elif n[1] < '7':
                     memo[n[i:]] += self.dfs(memo, i, n[1:])
                     memo[n[i:]] += self.dfs(memo, i, n[2:])
-                if n[1] == "*":
-                    for j in range(1, 7):
-                        memo[n[i:]] += self.dfs(memo, i, n[0] + str(j) + n[2:])
+                else:
+                    memo[n[i:]] += self.dfs(memo, i, n[1:])
             elif n[0] > '2':
                 memo[n[i:]] += self.dfs(memo, i, n[1:])
         # print(n[i:], memo[n[i:]])
