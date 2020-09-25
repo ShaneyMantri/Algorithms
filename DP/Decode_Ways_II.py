@@ -20,7 +20,7 @@ Input: "1*"
 Output: 9 + 9 = 18
 """
 
-# Method 1 WA - 143/173
+# Method 1 WA - 160/173
 
 class Solution:
     def dfs(self, memo, i, n):
@@ -62,7 +62,7 @@ class Solution:
                     # memo[n[i:]] += self.dfs(memo, i, n[1:])
                     memo[n[i:]] += self.dfs(memo, i, n[2:])
                 elif n[1] == "*":
-                    for j in range(1, 7):
+                    for j in range(1, 10):
                         memo[n[i:]] += self.dfs(memo, i, n[0] + str(j) + n[2:])
                 elif n[1] < '7':
                     memo[n[i:]] += self.dfs(memo, i, n[1:])
