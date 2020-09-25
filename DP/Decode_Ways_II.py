@@ -20,24 +20,29 @@ Input: "1*"
 Output: 9 + 9 = 18
 """
 
-# Method 1 WA - 94/173
+# Method 1 WA - 128/173
 
 class Solution:
     def dfs(self, memo, i, n):
+        # print(n)
         if n[i:] in memo:
             return memo[n[i:]]
         
         if len(n) == 0:
-            return 0
+            # print(n, 1)
+            return 1
         
         if len(n) == 1:
             if n.count('*') == 0:
+                # print(n, 1)
                 return 1
+            # print(n, 9)
             return 9
         
-        if len(n) == 2 and n.count('*') == 0:
-            if int(n) <= 26:
-                return 1
+        # if len(n) == 2 and n.count('*') == 0:
+        #     if int(n) <= 26:
+        #         print(n, 1)
+        #         return 1
             
         memo[n[i:]] = 0    
         if n[0] == "*":
@@ -67,11 +72,11 @@ class Solution:
                         memo[n[i:]] += self.dfs(memo, i, n[0] + str(j) + n[2:])
             elif n[0] > '2':
                 memo[n[i:]] += self.dfs(memo, i, n[1:])
-                
+        # print(n[i:], memo[n[i:]])
         return memo[n[i:]]
                 
         
     def numDecodings(self, s: str) -> int:
         memo = {}
-        return self.dfs(memo, 0, s)
+        return self.dfs(memo, 0, s)%((10**9)+7)
         
