@@ -26,38 +26,28 @@ There are two ways to reach the bottom-right corner:
 """
 
 class Solution:
-    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
-        if len(obstacleGrid)==0:
+    def uniquePathsWithObstacles(self, o: List[List[int]]) -> int:
+        m = len(o)
+        n = len(o[0])
+        if o[0][0] == 1 or o[m-1][n-1] == 1:
             return 0
-        if obstacleGrid[0][0]==1 or obstacleGrid[-1][-1]==1:
-            return 0
-         
-        m = len(obstacleGrid)
-        n = len(obstacleGrid[0])
-
-        dp = [[0]*n for _ in range(m)]
         
+        dp = [[0]*len(o[i]) for i in range(len(o))]
         for i in range(m):
-            if obstacleGrid[i][0]==0:
-                dp[i][0]=1
-            else:
+            if o[i][0] == 1:
                 break
-        
-        for i in range(n):
-            if obstacleGrid[0][i]==0:
-                dp[0][i]=1
-            else:
+            dp[i][0] = 1
+            
+        for j in range(n):
+            if o[0][j] == 1:
                 break
-                
-        for i in range(1,m):
-            for j in range(1,n):
-                if obstacleGrid[i][j]==1:
-                    continue
-                else:
-                    if obstacleGrid[i-1][j]==0:
-                        dp[i][j]+=dp[i-1][j]
-                    if obstacleGrid[i][j-1]==0:
-                        dp[i][j]+=dp[i][j-1]
-                        
-        return dp[-1][-1]
-                    
+            dp[0][j] = 1
+            
+        for i in range(1, m):
+            for j in range(1, n):
+                if o[i][j] != 1:
+                    if o[i - 1][j] != 1:
+                        dp[i][j] += dp[i - 1][j]
+                    if o[i][j - 1] != 1:
+                        dp[i][j] += dp[i][j - 1]
+        return dp[m-1][n-1]
