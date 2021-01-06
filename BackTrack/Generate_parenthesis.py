@@ -14,32 +14,21 @@ For example, given n = 3, a solution set is:
 """
 
 class Solution:
-    
-    res = []
-    def generate(self, s, lc, rc, n):
-        if lc==n:
-            if rc==n:
-                self.res.append(s)
-                return self.res
+    res = 0
+    def dfs(self, lp, rp, s, fin):
+        if rp == lp:
+            if lp < fin:
+                self.dfs(lp+1, rp, s+"(", fin)
             else:
-                self.generate(s+')', lc, rc+1, n)
-                    
-        if lc<n:
-            if lc==rc:
-                self.generate(s+'(', lc+1, rc, n)
-            if lc>rc:
-                self.generate(s+'(', lc+1, rc, n)
-                self.generate(s+')', lc, rc+1, n)
-                
+                self.res.append(s)
+                return
+        if rp < lp:
+            if lp < fin:
+                self.dfs( lp+1, rp, s+"(", fin)
+            self.dfs( lp, rp+1, s+")", fin)
                 
             
-    
     def generateParenthesis(self, n: int) -> List[str]:
-
-        self.res[:] = []
-
-        lc = 0
-        rc = 0
-        s = ''
-        self.generate(s, lc, rc, n)
+        self.res = []
+        self.dfs(0,0,'', n)
         return self.res
