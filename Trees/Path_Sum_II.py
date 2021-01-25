@@ -26,33 +26,20 @@ Return:
 
 
 """
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
 class Solution:
-    res = []
-    def dfs(self, temp, root, s,t):
-        if root is None:
-            return
-
-        if t==s+root.val and (root.left is None and root.right is None):
-            self.res.append(temp+[root.val])
+    ans = []
+    def dfs(self, root, l, s):
+        if s == 0 and root.left == None and root.right == None:
+            self.ans.append(l)
             
-        self.dfs(temp+[root.val], root.left, s+root.val,t)
-        self.dfs(temp+[root.val], root.right, s+root.val,t)
-            
-        
-        
-        
-        
+        if root.left:
+            self.dfs(root.left, l+[root.left.val], s-root.left.val)
+        if root.right:
+            self.dfs(root.right, l+[root.right.val], s-root.right.val)
+                
     def pathSum(self, root: TreeNode, s: int) -> List[List[int]]:
+        self.ans = []
         if not root:
             return []
-        self.res = []
-        self.dfs([], root, 0,s)
-        return self.res
-        
+        self.dfs(root, [root.val], s-root.val)
+        return self.ans
